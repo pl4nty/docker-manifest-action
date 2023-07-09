@@ -70,10 +70,11 @@ async function main() {
         core.info(`Now pushing image ${image}`);
 
         let digest = '';
-        let options = { listeners: { stdout: (data) => (digest += data.toString()) } };
+        let options = { listeners: { stdout: (data) => (digest += data.toString()) }};
         const [other, result] = await util.measureAsyncFunction(() =>
           exec('docker', getManifestArguments('push', image, [], inputs.amend), options)
         );
+        digest = digest.trim();
         images.push(`${image}@${digest}`);
 
         core.info(`Took ${other} to push image [${image}] with digest ${digest}`);
