@@ -72,7 +72,7 @@ async function main() {
         let digest = '';
         let options = { listeners: { stdout: (data) => (digest += data.toString()) } };
         const [other, result] = await util.measureAsyncFunction(() =>
-          exec('docker', getManifestArguments('push', image, [], inputs.amend))
+          exec('docker', getManifestArguments('push', image, [], inputs.amend), options)
         );
         images.push(`${image}@${digest}`);
 
@@ -82,7 +82,7 @@ async function main() {
     })
   );
 
-  // core.setOutput('images', images.join());
+  core.setOutput('images', images.join());
 }
 
 main().catch((ex) => {
