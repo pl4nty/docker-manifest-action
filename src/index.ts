@@ -82,7 +82,7 @@ async function main() {
     })
   );
 
-  core.setOutput('images', images.join());
+  // core.setOutput('images', images.join());
 }
 
 main().catch((ex) => {
