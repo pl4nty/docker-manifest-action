@@ -52,6 +52,7 @@ async function main() {
   }
   core.endGroup();
 
+  let images: string[] = [];
   await Promise.all(
     inputs.inputs.map(async (image) => {
       core.info(`Creating manifest for image [${image}] with [${inputs.images.join(', ')}] outputs`);
@@ -67,15 +68,21 @@ async function main() {
 
       if (inputs.push) {
         core.info(`Now pushing image ${image}`);
+
+        let digest = '';
+        let options = { listeners: { stdout: (data) => (digest += data.toString()) } };
         const [other, result] = await util.measureAsyncFunction(() =>
           exec('docker', getManifestArguments('push', image, [], inputs.amend))
         );
+        images.push(`${image}@${digest}`);
 
-        core.info(`Took ${other} to push image [${image}]`);
+        core.info(`Took ${other} to push image [${image}] with digest ${digest}`);
         core.debug(`$ docker ${getManifestArguments('push', image, [], inputs.amend)}\n${result}`);
       }
     })
   );
+
+  core.setOutput('images', images.join());
 }
 
 main().catch((ex) => {

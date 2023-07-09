@@ -29,8 +29,8 @@ steps:
 > Type: String
 >
 > Required: True
-Image name(s), optionally comma separated, that the final image manifest will be called.
 
+Image name(s), optionally comma separated, that the final image manifest will be called.
 
 #### Example
 
@@ -38,6 +38,7 @@ Image name(s), optionally comma separated, that the final image manifest will be
 inputs: namespace/image:latest
 images: namespace/image:latest-amd64,namespace/image:latest-arm64
 ```
+
 In this example, the two images from `images` will be combined to create the final `inputs`.
 
 ### images
@@ -54,6 +55,7 @@ Comma-seperated list of images that will be applied to the merged manifest(s) de
 inputs: namespace/image:latest
 images: namespace/image:latest-amd64,namespace/image:latest-arm64
 ```
+
 In this example, the two images from `images` will be combined to create the final `inputs`.
 
 ### push
@@ -64,7 +66,7 @@ In this example, the two images from `images` will be combined to create the fin
 >
 > Default: `false`
 
-If the final [images](#images)  should be pushed or not.
+If the final [images](#images) should be pushed or not.
 
 ### amend
 
